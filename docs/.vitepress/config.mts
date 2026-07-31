@@ -86,7 +86,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Introduction', link: '/langchain/' },
-            { text: 'What is LangChain?', link: '/langchain/what-is-langchain' },
+            { text: 'Core Components Overview', link: '/langchain/langchain-components' },
             { text: 'Installation', link: '/langchain/installation' },
             { text: 'LangChain Expression Language (LCEL)', link: '/langchain/langchain-expression-language' },
             { text: 'Prompt Templates', link: '/langchain/prompt-templates' },

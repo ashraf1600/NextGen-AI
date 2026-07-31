@@ -1,4 +1,3 @@
-
 # 🚀 NextGen AI
 
 **NextGen AI** is a modern documentation platform focused on **Artificial Intelligence** and **Generative AI**. It provides structured learning paths, practical guides, and hands-on resources to help developers, students, and AI enthusiasts master modern AI technologies.
@@ -62,10 +61,4 @@ docs/
 
 Coming Soon...
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-## 📄 License
-
-Released under the MIT License.
+## 🤝ributineased under the MIT License.[ ]
