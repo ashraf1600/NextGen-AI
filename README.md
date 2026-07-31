@@ -59,6 +59,6 @@ docs/
 
 ## 🌐 Live Demo
 
-Coming Soon...
+https://ashraf1600.github.io/NextGen-AI/
 
 ## 🤝ributineased under the MIT License.[ ]
