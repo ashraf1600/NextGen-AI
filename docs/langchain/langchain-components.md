@@ -9,8 +9,6 @@ LangChain মূলত ৬টি core component নিয়ে গঠিত। 
 
 ## বড় ছবি (Big Picture)
 
-![Core Components](public/images/langchain/Core_components.png)
-
 ```
 Models      → AI-এর মূল মস্তিষ্ক (LLM এবং embedding model)
 Prompts     → model কে কী পাঠাচ্ছো
