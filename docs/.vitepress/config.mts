@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/nextgen_ai/',
+  base: '/NextGen_AI/',
   title: "NextGen AI",
   description: "NextGen AI is a comprehensive guide to the latest advancements in artificial intelligence, providing insights, tutorials, and resources for developers and enthusiasts.",
   ignoreDeadLinks: true,
