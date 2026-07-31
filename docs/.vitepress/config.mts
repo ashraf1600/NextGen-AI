@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/NextGen_AI/',
+  base: '/NextGen-AI/',
   title: "NextGen AI",
   description: "NextGen AI is a comprehensive guide to the latest advancements in artificial intelligence, providing insights, tutorials, and resources for developers and enthusiasts.",
   ignoreDeadLinks: true,
@@ -168,8 +168,8 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/riponahmed2201' },
-      { icon: 'linkedin', link: 'https://www.linkedin.com/in/md-ripon-mia1' },
+      { icon: 'github', link: 'https://github.com/ashraf1600' },
+      { icon: 'linkedin', link: 'linkedin.com/in/ashraful-islam-a31268226/' },
       { icon: 'youtube', link: 'https://youtube.com/@riponahmed2201' }
     ],
 
