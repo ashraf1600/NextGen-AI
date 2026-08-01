@@ -1,6 +1,9 @@
 import { defineConfig } from 'vitepress'
+import {withMermaid} from "vitepress-plugin-mermaid";
 
-export default defineConfig({
+
+export default withMermaid(
+ defineConfig({
   base: '/NextGen-AI/',
   title: "NextGen-AI",
   description: "NextGen AI is a comprehensive guide to the latest advancements in artificial intelligence, providing insights, tutorials, and resources for developers and enthusiasts.",
@@ -19,10 +22,7 @@ export default defineConfig({
       {
         text: 'Languages & Frameworks',
         items: [
-          { text: 'Python', link: '/python/' },
-          { text: 'PyTorch', link: '/pytorch/' },
-          { text: 'TensorFlow / JAX', link: '/tensorflow-jax/' },
-          { text: 'FastAPI', link: '/fastapi/' }
+          { text: 'Django Rest Framework', link: '/drf/' },
         ]
       },
 
@@ -49,32 +49,12 @@ export default defineConfig({
         ]
       },
 
-      // {
-      //   text: 'MLOps & Tools',
-      //   items: [
-      //     { text: 'Vector Databases', link: '/vector-databases/' },
-      //     { text: 'Model Serving', link: '/model-serving/' },
-      //     { text: 'Experiment Tracking', link: '/experiment-tracking/' },
-      //     { text: 'Deployment (Docker, K8s)', link: '/deployment/' },
-      //     { text: 'Inference / Serving', link: '/inference-serving/' }
-      //   ]
-      // },
-
-      // {
-      //   text: 'Architecture & Design',
-      //   items: [
-      //     { text: 'System Design for AI Apps', link: '/architecture/system-design' },
-      //     { text: 'RAG Architecture Patterns', link: '/architecture/rag-patterns' },
-      //     { text: 'Multi-Agent Architecture', link: '/architecture/multi-agent' }
-      //   ]
-      // },
-
       {
         text: 'AI Interview Preparation',
         items: [
           { text: 'AI/ML Fundamentals', link: '/fundamentals/math-stats' },
           { text: 'RAG', link: '/Rag/rag' },
-          { text: 'Agentic AI ', link: '/Agentic_ai/' }
+          { text: 'Agentic AI', link: '/Agentic_ai/' }
         ]
       }
     ],
@@ -85,31 +65,30 @@ export default defineConfig({
           text: 'LangChain',
           collapsed: false,
           items: [
-            {text: 'Introduction', link: '/langchain/' },
-            {text: 'Installation', link: '/langchain/installation' },
-            {text: 'LangChain Expression Language (LCEL)', link: '/langchain/langchain-expression-language' },
-            {text: 'Core Components Overview', link: '/langchain/langchain-components' },
-            {text: 'Component: Models',link: '/langchain/models'},
-            {text: 'Component: Prompts',link: '/langchain/prompt'},
-            {text: 'Structured Output', link: '/langchain/structured-output' },
-            {text:'Output Parsers',link:'/langchain/output-parsers_1'},
-            {text:'Component: Chains',link:'/langchain/chains'},
-            {text:'What are Runnables?',link:'/langchain/runnables'},
-            {text:'Component: Indexes',link:'/langchain/indexes'},
-            {text:'Document Loaders',link:'/langchain/document-loaders'},
-            {text:'Text Splitters',link:'/langchain/text-splitters'},
-            {text:'Vector Stores',link:'/langchain/vector-stores'},
-            {text:'Retrievers',link:'/langchain/retrievers'},
-            {text:'Component: Agents',link:'/langchain/agents'},
-            {text:'Component: Memory',link:'/langchain/memory'},
-            {text:'Intro to RAG (Retrieval-Augmented Generation)',link:'/langchain/rag'},
-            {text:'tools',link:'/langchain/tools'},
-            {text: 'Tool Calling', link: '/langchain/tool-calling' },
-            {text:'Agents',link:'/langchain/agents'},
-            {text: 'Callbacks', link: '/langchain/callbacks' },
-            {text: 'LangSmith', link: '/langchain/langsmith' },
-            {text: 'LangServe', link: '/langchain/langserve' },
-            {text: 'Projects', link: '/langchain/projects' }
+            { text: 'Introduction', link: '/langchain/' },
+            { text: 'Installation', link: '/langchain/installation' },
+            { text: 'LangChain Expression Language (LCEL)', link: '/langchain/langchain-expression-language' },
+            { text: 'Core Components Overview', link: '/langchain/langchain-components' },
+            { text: 'Component: Models', link: '/langchain/models' },
+            { text: 'Component: Prompts', link: '/langchain/prompt' },
+            { text: 'Structured Output', link: '/langchain/structured-output' },
+            { text: 'Output Parsers', link: '/langchain/output-parsers_1' },
+            { text: 'Component: Chains', link: '/langchain/chains' },
+            { text: 'What are Runnables?', link: '/langchain/runnables' },
+            { text: 'Component: Indexes', link: '/langchain/indexes' },
+            { text: 'Document Loaders', link: '/langchain/document-loaders' },
+            { text: 'Text Splitters', link: '/langchain/text-splitters' },
+            { text: 'Vector Stores', link: '/langchain/vector-stores' },
+            { text: 'Retrievers', link: '/langchain/retrievers' },
+            { text: 'Component: Memory', link: '/langchain/memory' },
+            { text: 'Intro to RAG (Retrieval-Augmented Generation)', link: '/langchain/rag' },
+            { text: 'Tools', link: '/langchain/tools' },
+            { text: 'Tool Calling', link: '/langchain/tool-calling' },
+            { text: 'Component: Agents', link: '/langchain/agents' },
+            { text: 'Callbacks', link: '/langchain/callbacks' },
+            { text: 'LangSmith', link: '/langchain/langsmith' },
+            { text: 'LangServe', link: '/langchain/langserve' },
+            { text: 'Projects', link: '/langchain/projects' }
           ]
         }
       ],
@@ -160,8 +139,24 @@ export default defineConfig({
           text: 'Overview',
           collapsed: false,
           items: [
-            { text: 'Overview', link:'/orchestration/' },
+            { text: 'Overview', link: '/orchestration/' },
             { text: 'Choosing the Right Framework', link: '/orchestration/comparison' }
+          ]
+        }
+      ],
+
+      '/drf/': [
+        {
+          text: 'Django Rest Framework',
+          collapsed: false,
+          items: [
+            { text: 'Section 1: Introduction', link: '/drf/'},
+            { text: 'Section 2: Project Setup', link: '/drf/project-setup' },
+            { text: 'Section 3: Models', link: '/drf/models' },
+            { text: 'Section 4: APIView', link: '/drf/apiview' },
+            { text: 'Section 5: Serializer', link: '/drf/serializer' },
+            { text: 'Section 6: GenericAPIView', link: '/drf/genericapiview' }
+
           ]
         }
       ]
@@ -169,7 +164,7 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ashraf1600' },
-      { icon: 'linkedin', link: 'linkedin.com/in/ashraful-islam-a31268226/' },
+      { icon: 'linkedin', link: 'https://linkedin.com/in/ashraful-islam-a31268226/' },
       { icon: 'youtube', link: 'https://youtube.com/@riponahmed2201' }
     ],
 
@@ -179,3 +174,4 @@ export default defineConfig({
     }
   }
 })
+)
