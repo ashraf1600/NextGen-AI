@@ -1,7 +1,6 @@
 ---
 title: Core Components Overview
 ---
-# LangChain এর ৬টি Core Component
 
 LangChain মূলত ৬টি core component নিয়ে গঠিত। প্রতিটা component কী কাজ করে এবং একটা আরেকটার সাথে কীভাবে যুক্ত — এটা বুঝলে বাকি পুরো ডকুমেন্টেশন (Prompt Templates, Chains, Memory, Agents ইত্যাদি) পড়া অনেক সহজ হয়ে যাবে, কারণ এরপরের প্রতিটা topic আসলে এই ৬টার একটার detail explanation।
 
@@ -9,7 +8,7 @@ LangChain মূলত ৬টি core component নিয়ে গঠিত। 
 
 ## বড় ছবি (Big Picture)
 
-```
+```text
 Models      → AI-এর মূল মস্তিষ্ক (LLM এবং embedding model)
 Prompts     → model কে কী পাঠাচ্ছো
 Chains      → একাধিক ধাপ কীভাবে একসাথে যুক্ত হচ্ছে
@@ -28,10 +27,10 @@ Models হলো তোমার code আর actual AI provider (OpenAI, Anthrop
 
 এখানে দুই ধরনের model আছে:
 
-| ধরন                     | Input → Output                        | কোথায় ব্যবহার হয়   |
-| -------------------------- | -------------------------------------- | ------------------------------------ |
-| **Language Models**  | Text ইনপুট → Text আউটপুট   | Chat, summarization, text generation |
-| **Embedding Models** | Text ইনপুট → Vector আউটপুট | Semantic search, RAG retrieval       |
+| ধরন | Input → Output | কোথায় ব্যবহার হয় |
+| --- | --- | --- |
+| **Language Models** | Text ইনপুট → Text আউটপুট | Chat, summarization, text generation |
+| **Embedding Models** | Text ইনপুট → Vector আউটপুট | Semantic search, RAG retrieval |
 
 যেহেতু দুই ধরনের model-ই একই standard interface follow করে, `ChatOpenAI` দিয়ে লেখা code আর `ChatAnthropic` দিয়ে লেখা code প্রায় একই রকম দেখতে — শুধু import আর constructor বদলায়।
 
@@ -73,12 +72,12 @@ Indexes তোমার application কে বাইরের ডেটার �
 
 Indexes আসলে চারটা sub-tool একসাথে কাজ করে:
 
-| Sub-component              | কাজ                                                                                                              |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **Document Loaders** | PDF, website, database থেকে raw content নিয়ে আসা                                                       |
-| **Text Splitters**   | বড় document কে ছোট ছোট chunk এ ভাগ করা                                                           |
-| **Vector Stores**    | chunk গুলোকে embedding হিসেবে সংরক্ষণ করা যাতে দ্রুত semantic search করা যায় |
-| **Retrievers**       | নির্দিষ্ট query এর জন্য সবচেয়ে relevant chunk খুঁজে বের করা                       |
+| Sub-component | কাজ |
+| --- | --- |
+| **Document Loaders** | PDF, website, database থেকে raw content নিয়ে আসা |
+| **Text Splitters** | বড় document কে ছোট ছোট chunk এ ভাগ করা |
+| **Vector Stores** | chunk গুলোকে embedding হিসেবে সংরক্ষণ করা যাতে দ্রুত semantic search করা যায় |
+| **Retrievers** | নির্দিষ্ট query এর জন্য সবচেয়ে relevant chunk খুঁজে বের করা |
 
 > বিস্তারিত পাবে [Vector Stores](/langchain/vector-stores), [Retrievers](/langchain/retrievers), এবং [RAG](/langchain/rag) পেজে।
 

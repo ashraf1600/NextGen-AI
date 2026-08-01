@@ -57,7 +57,7 @@ docs/
 └── .vitepress/
 ```
 
-## 🌐 Live Demo
+* [ ] 🌐 Live Demo
 
 https://ashraf1600.github.io/NextGen-AI/
 

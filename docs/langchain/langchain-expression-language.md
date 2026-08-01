@@ -2,21 +2,21 @@
 title: LangChain Expression Language (LCEL)
 ---
 
-# LangChain Expression Language (LCEL)
+LCEL হলো `|` (pipe) সিম্বল ব্যবহার করে LangChain এর বিভিন্ন component কে একসাথে যুক্ত করার পদ্ধতি। এটা LangChain এর সবচেয়ে গুরুত্বপূর্ণ concept — কারণ প্রায় প্রতিটা বাস্তব application ভিতরে ভিতরে এই একই পদ্ধতিতে গঠিত।
 
-LCEL is the `|` pipe syntax used to compose LangChain components into a chain. It's the single most important concept in modern LangChain — almost everything else in this section builds on top of it.
+## মূল ধারণা
 
-## The Basic Idea
-
-Any two `Runnable` objects can be connected with `|`, where the output of the left side becomes the input of the right side — just like piping commands in a terminal.
+দুইটা `Runnable` অবজেক্টকে `|` দিয়ে যুক্ত করলে, বাম পাশের output ডান পাশের input হয়ে যায় — ঠিক যেমন terminal এ command pipe করা হয়।
 
 ```python
 chain = prompt | model | parser
 ```
 
-Read this as: *"Take the prompt, send it to the model, then send the model's output to the parser."*
+এটা পড়তে হবে এভাবে: *"prompt নাও, সেটা model এ পাঠাও, তারপর model এর output parser এ পাঠাও।"*
 
-## Building Your First Chain
+---
+
+## প্রথম Chain বানানো
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -24,41 +24,46 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 prompt = ChatPromptTemplate.from_template(
-    "Translate '{text}' into {language}."
+    "'{text}' এই বাক্যটা {language} ভাষায় অনুবাদ করো।"
 )
 model = ChatOpenAI(model="gpt-4o")
 parser = StrOutputParser()
 
 chain = prompt | model | parser
 
-result = chain.invoke({"text": "good morning", "language": "Bengali"})
+result = chain.invoke({"text": "শুভ সকাল", "language": "ইংরেজি"})
 print(result)
 ```
 
-Each `|` step is independently swappable — change the parser, change the model, change the prompt — without touching the rest of the chain.
+লক্ষ্য করো — `prompt`, `model`, `parser` প্রতিটাই আলাদা, independent component। পরে চাইলে শুধু `parser` বদলে দিলেই output format বদলে যাবে, বাকি chain একই থাকবে। এভাবেই একটা component পরিবর্তন করলে বাকি chain এ হাত দেওয়া লাগে না।
 
-## The Four Ways to Run a Chain
+---
 
-Every LCEL chain supports the same four execution methods, regardless of what's inside it:
+## Chain চালানোর ৪টা পদ্ধতি
 
-| Method | Behavior |
-|---|---|
-| `.invoke(input)` | Run once, return the full result |
-| `.stream(input)` | Yield output incrementally (token-by-token for chat models) |
-| `.batch([input1, input2])` | Run multiple inputs in parallel |
-| `.ainvoke(input)` | Async version of `.invoke()` |
+LCEL দিয়ে বানানো যেকোনো chain — ভেতরে যাই থাকুক না কেন — একই চারটা method সাপোর্ট করে:
+
+| Method | কাজ |
+| --- | --- |
+| `.invoke(input)` | একবার চালিয়ে সম্পূর্ণ result রিটার্ন করে |
+| `.stream(input)` | output ধীরে ধীরে token-by-token আকারে দেয় |
+| `.batch([input1, input2])` | একাধিক input একসাথে parallel এ চালায় |
+| `.ainvoke(input)` | `.invoke()` এর async ভার্সন |
+
+### Streaming উদাহরণ
 
 ```python
-# Streaming example
-for chunk in chain.stream({"text": "thank you", "language": "French"}):
+for chunk in chain.stream({"text": "ধন্যবাদ", "language": "ফরাসি"}):
     print(chunk, end="", flush=True)
 ```
 
-You get streaming and batching **for free** — you don't write any extra code to support them, because every component in the chain already implements the `Runnable` interface.
+গুরুত্বপূর্ণ বিষয় হলো — streaming, batching এর জন্য তোমাকে **আলাদা কোনো কোড লিখতে হচ্ছে না**। প্রতিটা component `Runnable` ইন্টারফেস ইমপ্লিমেন্ট করে বলেই এই সুবিধাগুলো chain বানানোর সাথে সাথেই ফ্রি পেয়ে যাও।
 
-## Running Steps in Parallel
+---
 
-Use `RunnableParallel` when you need multiple independent branches to run at the same time and merge their results.
+## একসাথে একাধিক ধাপ চালানো — RunnableParallel
+
+যখন একাধিক independent কাজ একসাথে চালিয়ে শেষে ফলাফল merge করতে হয়, তখন `RunnableParallel` ব্যবহার করা হয়।
 
 ```python
 from langchain_core.runnables import RunnableParallel
@@ -68,27 +73,35 @@ parallel_chain = RunnableParallel(
     word_count=lambda x: len(x["text"].split())
 )
 
-result = parallel_chain.invoke({"text": "good morning", "language": "Bengali"})
+result = parallel_chain.invoke({"text": "শুভ সকাল", "language": "বাংলা"})
 # {'translation': '...', 'word_count': 2}
 ```
 
-## Conditional Logic with RunnableBranch
+এখানে `translation` আর `word_count` দুটোই একসাথে চলছে, একটা আরেকটার জন্য অপেক্ষা করছে না।
 
-For "if this, do that" logic inside a chain:
+---
+
+## শর্তসাপেক্ষ লজিক — RunnableBranch
+
+Chain এর ভিতরে "যদি এমন হয়, তাহলে এটা করো" ধরনের লজিকের জন্য:
 
 ```python
 from langchain_core.runnables import RunnableBranch
 
 branch = RunnableBranch(
-    (lambda x: x["language"] == "Bengali", bengali_chain),
-    (lambda x: x["language"] == "French", french_chain),
-    default_chain  # fallback
+    (lambda x: x["language"] == "বাংলা", bangla_chain),
+    (lambda x: x["language"] == "ফরাসি", french_chain),
+    default_chain  # কোনো শর্ত মিলল না হলে এটা চলবে
 )
 ```
 
-## Passing Data Through with RunnablePassthrough
+প্রতিটা condition (lambda function, chain) জোড়া আকারে দেওয়া হয় — প্রথম যে condition true হবে, সেই chain টা চলবে। কোনোটাই না মিললে সবশেষে দেওয়া `default_chain` চলে।
 
-Sometimes you need to carry the original input forward alongside a transformed value — common in RAG pipelines where you need both the retrieved context *and* the original question downstream.
+---
+
+## Input ধরে রাখা — RunnablePassthrough
+
+অনেক সময় একটা transform করা value এর পাশাপাশি original input ও পরের ধাপে পাঠাতে হয় — যেমন RAG pipeline এ, retrieved context এর পাশাপাশি user এর আসল প্রশ্নও prompt এ দরকার হয়।
 
 ```python
 from langchain_core.runnables import RunnablePassthrough
@@ -101,12 +114,24 @@ rag_chain = (
 )
 ```
 
-Here, `question` passes through unchanged while `context` gets populated by the retriever — both land as variables in the next prompt step.
+এখানে `question` অপরিবর্তিত অবস্থায় সরাসরি চলে যাচ্ছে, আর `context` retriever দিয়ে populate হচ্ছে — দুটো variable-ই পরের prompt ধাপে একসাথে পাওয়া যাচ্ছে।
 
-## Why This Matters More Than It Looks
+---
 
-LCEL replaced LangChain's older `Chain` class hierarchy (`LLMChain`, `SequentialChain`, etc.), which required subclassing and boilerplate. LCEL chains are just plain Python objects composed with an operator — easier to read, easier to debug, and every chain automatically gets streaming, batching, and async support without extra work.
+## এটা কেন গুরুত্বপূর্ণ
 
-## What's Next
+LangChain এর আগের ভার্সনে `LLMChain`, `SequentialChain` এর মতো ক্লাস ব্যবহার করতে হতো, যেখানে subclassing আর অনেক boilerplate কোড লিখতে হতো। LCEL সেই পুরনো পদ্ধতি প্রতিস্থাপন করেছে — এখন chain মানেই সাধারণ Python অবজেক্ট, যেগুলো `|` অপারেটর দিয়ে যুক্ত করা হয়। ফলাফল:
 
-Next: [Prompt Templates](/langchain/prompt-templates) — the first building block you'll plug into the left side of most chains.
+- কোড পড়তে সহজ
+- Debug করা সহজ
+- প্রতিটা chain automatic ভাবে streaming, batching, async সাপোর্ট পায় — কোনো extra কাজ ছাড়াই
+
+---
+
+## সংক্ষেপে
+
+- `|` অপারেটর দিয়ে component একসাথে যুক্ত করা হয় — বাম দিকের output ডান দিকের input হয়ে যায়
+- প্রতিটা LCEL chain এ `.invoke()`, `.stream()`, `.batch()`, `.ainvoke()` — এই চারটা method একইভাবে কাজ করে
+- `RunnableParallel` — একসাথে একাধিক ধাপ চালানোর জন্য
+- `RunnableBranch` — শর্তসাপেক্ষ লজিকের জন্য
+- `RunnablePassthrough` — original input পরের ধাপে অপরিবর্তিতভাবে পাঠানোর জন্য

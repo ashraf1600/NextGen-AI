@@ -2,77 +2,104 @@
 title: Installation
 ---
 
-# Installation
+# Installation — LangChain সেটআপ
 
-This page gets your environment ready for every example in this LangChain section.
+এই পেজে আমরা ধাপে ধাপে দেখব কীভাবে LangChain এর জন্য প্রয়োজনীয় পুরো environment সেটআপ করতে হয়, যাতে যেকোনো কোড উদাহরণ সরাসরি চালানো যায়।
 
-## Prerequisites
+## প্রয়োজনীয় জিনিসপত্র (Prerequisites)
 
-- Python 3.9 or higher
-- `pip` (or `uv`/`poetry` if you prefer)
-- An API key from at least one LLM provider (OpenAI, Anthropic, etc.)
+- Python 3.9 বা তার উপরের ভার্সন
+- `pip` (অথবা চাইলে `uv` / `poetry`)
+- অন্তত একটা LLM provider এর API key (OpenAI, Anthropic, Google — যেকোনো একটা)
 
-Check your Python version:
+Python ভার্সন চেক করার জন্য:
 
 ```bash
 python --version
 ```
 
-## Step 1: Create a Virtual Environment
+যদি Python ইনস্টল করা না থাকে, [python.org](https://www.python.org/downloads/) থেকে ডাউনলোড করে নাও। ইনস্টল করার সময় অবশ্যই "Add Python to PATH" অপশনটা টিক দিতে হবে (Windows এ), নাহলে টার্মিনাল থেকে `python` কমান্ড কাজ করবে না।
 
-Always isolate your project dependencies.
+---
 
-::: code-group
+## ধাপ ১: Virtual Environment তৈরি করা
 
-```bash [macOS/Linux]
+প্রতিটা প্রজেক্টের জন্য আলাদা virtual environment ব্যবহার করা উচিত — এতে করে একটা প্রজেক্টের প্যাকেজের সাথে আরেকটা প্রজেক্টের প্যাকেজের কনফ্লিক্ট হয় না।
+
+### macOS / Linux
+
+```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
-```powershell [Windows PowerShell]
+### Windows PowerShell
+
+```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
+::: warning PowerShell এ Execution Policy সমস্যা
+যদি `Activate.ps1` চালাতে গিয়ে "cannot be loaded because running scripts is disabled" এই ধরনের error আসে, তাহলে PowerShell এ (Administrator মোডে) এই কমান্ড চালাও:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+তারপর আবার Activate কমান্ড চালাও।
 :::
 
-## Step 2: Install Core LangChain Packages
+Virtual environment activate হলে টার্মিনালের শুরুতে `(venv)` লেখা দেখা যাবে — এটাই নিশ্চিত করে যে তুমি সঠিক environment এ আছো।
+
+---
+
+## ধাপ ২: LangChain এর Core প্যাকেজ ইনস্টল করা
 
 ```bash
 pip install langchain langchain-core
 ```
 
-Then install the provider package for whichever model you're using:
+- `langchain` — উচ্চ-স্তরের chain, agent, retrieval logic
+- `langchain-core` — মূল abstraction যেমন `Runnable`, prompt, message, output parser
 
-::: code-group
+এরপর যে provider ব্যবহার করবে তার জন্য আলাদা প্যাকেজ লাগবে — কারণ LangChain ইচ্ছাকৃতভাবে সব provider কে একসাথে bundle করে না, যাতে অপ্রয়োজনীয় dependency ইনস্টল না হয়।
 
-```bash [OpenAI]
+### OpenAI ব্যবহার করলে
+
+```bash
 pip install langchain-openai
 ```
 
-```bash [Anthropic]
+### Anthropic (Claude) ব্যবহার করলে
+
+```bash
 pip install langchain-anthropic
 ```
 
-```bash [Google Gemini]
+### Google Gemini ব্যবহার করলে
+
+```bash
 pip install langchain-google-genai
 ```
 
-:::
+তুমি চাইলে একাধিক provider প্যাকেজ পাশাপাশি ইনস্টল করে রাখতে পারো — এতে পরে provider পরিবর্তন করা সহজ হয়ে যায়, কোড আবার নতুন করে লিখতে হয় না।
 
-You can install multiple provider packages side by side — this is what makes swapping models later a one-line change instead of a rewrite.
+---
 
-## Step 3: Set Your API Key
+## ধাপ ৩: API Key সেটআপ করা
 
-Never hardcode API keys in your source files. Use environment variables.
+**API key কখনো সরাসরি কোডে হার্ডকোড করবে না।** এর বদলে environment variable ব্যবহার করতে হয়।
 
-Create a `.env` file in your project root:
+### `.env` ফাইল তৈরি করা
+
+প্রজেক্টের root ফোল্ডারে `.env` নামে একটা ফাইল বানাও:
 
 ```bash
-OPENAI_API_KEY=your-key-here
+OPENAI_API_KEY=তোমার-আসল-key-এখানে-বসাও
+ANTHROPIC_API_KEY=তোমার-আসল-key-এখানে-বসাও
+GOOGLE_API_KEY=তোমার-আসল-key-এখানে-বসাও
 ```
 
-Load it in Python using `python-dotenv`:
+### `.env` ফাইল Python এ লোড করা
 
 ```bash
 pip install python-dotenv
@@ -83,13 +110,22 @@ from dotenv import load_dotenv
 load_dotenv()
 ```
 
-::: warning
-Add `.env` to your `.gitignore` immediately — never commit API keys to version control.
+এই দুই লাইন কোডের একদম শুরুতে রাখলে, `.env` ফাইলের সব variable automatic ভাবে environment এ লোড হয়ে যাবে, এবং LangChain নিজে থেকেই key গুলো খুঁজে নিতে পারবে।
+
+::: danger গুরুত্বপূর্ণ
+`.env` ফাইলটা তোমার `.gitignore` এ যোগ করে দাও এখনই। এটা ভুলে গেলে GitHub এ push করার সময় তোমার API key সবার সামনে চলে যাবে, যেটা অনেক বড় security সমস্যা।
+
+`.gitignore` ফাইলে যোগ করো:
+```
+.env
+```
 :::
 
-## Step 4: Verify the Installation
+---
 
-Run this minimal script to confirm everything is wired correctly:
+## ধাপ ৪: Setup যাচাই করা
+
+সবকিছু ঠিকমতো কাজ করছে কিনা যাচাই করার জন্য এই ছোট script চালাও:
 
 ```python
 from dotenv import load_dotenv
@@ -98,30 +134,46 @@ from langchain_openai import ChatOpenAI
 load_dotenv()
 
 model = ChatOpenAI(model="gpt-4o")
-response = model.invoke("Say hello in one word.")
+response = model.invoke("এক শব্দে হ্যালো বলো।")
 print(response.content)
 ```
 
-If you see a response printed without errors, your setup is working.
+যদি error ছাড়া একটা response print হয়, তাহলে বুঝবে তোমার environment সঠিকভাবে সেটআপ হয়ে গেছে।
 
-## Optional: Install Extras as You Go
+---
 
-You don't need everything up front. Install these later, only when the relevant topic needs them:
+## Optional: প্রয়োজন অনুযায়ী পরে ইনস্টল করবে
 
-| Package | Needed for |
+সব প্যাকেজ একসাথে এখনই ইনস্টল করার দরকার নেই। নিচেরগুলো সেই সেই topic এ পৌঁছালে তখন ইনস্টল করলেই চলবে:
+
+| প্যাকেজ | কখন লাগবে |
 |---|---|
-| `langchain-community` | Vector stores, document loaders, community tools |
-| `langchain-chroma` / `langchain-pinecone` | Specific vector store integrations |
-| `langgraph` | Agent workflows (covered in its own section) |
-| `langsmith` | Tracing and debugging chains |
-| `langserve` | Deploying chains as REST APIs |
+| `langchain-community` | Vector store, document loader, community tool ব্যবহার করার সময় |
+| `langchain-chroma` / `langchain-pinecone` | নির্দিষ্ট vector database ব্যবহার করার সময় |
+| `langgraph` | Agent workflow বানানোর সময় |
+| `langsmith` | Chain এর debugging ও tracing করার সময় |
+| `langserve` | Chain কে REST API হিসেবে deploy করার সময় |
 
-## Common Setup Issues
+---
 
-- **`ModuleNotFoundError`** — you likely installed `langchain` but forgot the provider package (e.g. `langchain-openai`).
-- **`AuthenticationError`** — check that `.env` is being loaded *before* you instantiate the model, and that the variable name matches exactly (`OPENAI_API_KEY`, case-sensitive).
-- **Version conflicts** — LangChain's packages move fast; if you hit unexpected errors, run `pip install --upgrade langchain langchain-core` to sync versions.
+## সাধারণ সমস্যা ও সমাধান (Common Setup Issues)
 
-## What's Next
+- **`ModuleNotFoundError`** — সম্ভবত `langchain` ইনস্টল করেছো কিন্তু provider-specific প্যাকেজ (যেমন `langchain-openai`) ইনস্টল করতে ভুলে গেছো।
+- **`AuthenticationError`** — চেক করো `.env` ফাইল `load_dotenv()` দিয়ে model বানানোর *আগে* লোড হচ্ছে কিনা, এবং variable নাম ঠিক আছে কিনা (`OPENAI_API_KEY` — case-sensitive, বানানে সামান্য ভুল হলেও কাজ করবে না)।
+- **Version conflict** — LangChain এর প্যাকেজ খুব দ্রুত আপডেট হয়। কোনো অপ্রত্যাশিত error পেলে এই কমান্ড দিয়ে সব আপডেট করে নাও:
+  ```bash
+  pip install --upgrade langchain langchain-core
+  ```
+- **PowerShell এ venv activate না হওয়া** — উপরে দেওয়া Execution Policy সমাধান ব্যবহার করো।
 
-With your environment ready, move on to [LCEL](/langchain/langchain-expression-language) to learn the `|` syntax that chains everything together.
+---
+
+## সংক্ষেপে চেকলিস্ট
+
+- [ ] Python 3.9+ ইনস্টল আছে
+- [ ] Virtual environment তৈরি ও activate করা হয়েছে
+- [ ] `langchain` ও `langchain-core` ইনস্টল করা হয়েছে
+- [ ] প্রয়োজনীয় provider প্যাকেজ (openai/anthropic/google) ইনস্টল করা হয়েছে
+- [ ] `.env` ফাইলে API key বসানো হয়েছে
+- [ ] `.env` ফাইল `.gitignore` এ যোগ করা হয়েছে
+- [ ] Verification script চালিয়ে response পাওয়া গেছে
