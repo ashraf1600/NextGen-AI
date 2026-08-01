@@ -97,6 +97,38 @@ body {
   background: rgba(22, 27, 34, 0.85);
 }
 
+.custom-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.9rem;
+  margin: 1.4rem auto 0;
+  max-width: 900px;
+}
+
+.custom-stats-strip div {
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(62, 175, 124, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(8px);
+}
+
+.dark .custom-stats-strip div {
+  background: rgba(22, 27, 34, 0.8);
+}
+
+.custom-stats-strip strong {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--vp-c-brand-dark);
+}
+
+.custom-stats-strip span {
+  color: var(--vp-c-text-2);
+  font-size: 0.95rem;
+}
+
 .VPFeature {
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   border-radius: 18px;
@@ -132,6 +164,19 @@ body {
   margin-top: 0;
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
+}
+
+.custom-link-card {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.7rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-dark);
+  text-decoration: none;
+}
+
+.custom-link-card:hover {
+  text-decoration: underline;
 }
 
 @keyframes heroPulse {

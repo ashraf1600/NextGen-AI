@@ -1,7 +1,6 @@
 ---
 title: Introduction
 ---
-
 # Section 1: Introduction — DRF এর ভিত্তি
 
 DRF শেখার আগে কিছু মৌলিক ধারণা পরিষ্কার থাকা জরুরি — API কী, REST কী, HTTP কীভাবে কাজ করে, JSON কী। এই chapter এ আমরা এই ভিত্তিগুলো একদম প্রথম নীতি (first principles) থেকে বুঝব, যাতে পরবর্তী chapter গুলোতে DRF এর প্রতিটা abstraction এর **"কেন"** সহজে বোঝা যায়।
@@ -40,13 +39,13 @@ REST একটা "standard" না, এটা একটা "স্টাইল"
 
 ## REST Principles (REST এর মূলনীতি)
 
-| Principle | ব্যাখ্যা |
-|---|---|
-| **Statelessness** | প্রতিটা request সম্পূর্ণ independent — server কোনো client এর আগের request মনে রাখে না, প্রতিবার সব প্রয়োজনীয় তথ্য (যেমন auth token) request এ পাঠাতে হয় |
-| **Client-Server Separation** | Client (frontend) এবং Server (backend) সম্পূর্ণ আলাদা — একটা পরিবর্তন করলে আরেকটা ভাঙে না, যতক্ষণ API contract ঠিক থাকে |
-| **Uniform Interface** | সব resource একই ধরনের, predictable উপায়ে access করা যায় (যেমন সবসময় URL + HTTP method) |
-| **Resource-Based** | প্রতিটা জিনিস (user, post, comment) একটা "resource," এবং প্রতিটা resource এর একটা নির্দিষ্ট URL (identifier) থাকে |
-| **Cacheable** | Response গুলো cache করা যায় কিনা তা স্পষ্টভাবে বলা থাকে, performance বাড়ানোর জন্য |
+| Principle                          | ব্যাখ্যা                                                                                                                                                                                                                     |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Statelessness**            | প্রতিটা request সম্পূর্ণ independent — server কোনো client এর আগের request মনে রাখে না, প্রতিবার সব প্রয়োজনীয় তথ্য (যেমন auth token) request এ পাঠাতে হয় |
+| **Client-Server Separation** | Client (frontend) এবং Server (backend) সম্পূর্ণ আলাদা — একটা পরিবর্তন করলে আরেকটা ভাঙে না, যতক্ষণ API contract ঠিক থাকে                                                    |
+| **Uniform Interface**        | সব resource একই ধরনের, predictable উপায়ে access করা যায় (যেমন সবসময় URL + HTTP method)                                                                                                           |
+| **Resource-Based**           | প্রতিটা জিনিস (user, post, comment) একটা "resource," এবং প্রতিটা resource এর একটা নির্দিষ্ট URL (identifier) থাকে                                                                       |
+| **Cacheable**                | Response গুলো cache করা যায় কিনা তা স্পষ্টভাবে বলা থাকে, performance বাড়ানোর জন্য                                                                                                    |
 
 ### Statelessness কেন গুরুত্বপূর্ণ
 
@@ -101,13 +100,13 @@ sequenceDiagram
 
 ## HTTP Methods
 
-| Method | কাজ | RESTful ব্যবহার |
-|---|---|---|
-| **GET** | ডেটা পড়া (fetch) | Post list দেখা, একটা নির্দিষ্ট post দেখা |
-| **POST** | নতুন ডেটা তৈরি | নতুন Post/Comment তৈরি করা |
-| **PUT** | সম্পূর্ণ ডেটা replace করা | পুরো Post আপডেট (সব field দিতে হয়) |
-| **PATCH** | আংশিক ডেটা আপডেট | শুধু Post এর title বদলানো |
-| **DELETE** | ডেটা মুছে ফেলা | কোনো Post/Comment ডিলিট করা |
+| Method           | কাজ                                   | RESTful ব্যবহার                                        |
+| ---------------- | ---------------------------------------- | ------------------------------------------------------------- |
+| **GET**    | ডেটা পড়া (fetch)                | Post list দেখা, একটা নির্দিষ্ট post দেখা |
+| **POST**   | নতুন ডেটা তৈরি               | নতুন Post/Comment তৈরি করা                         |
+| **PUT**    | সম্পূর্ণ ডেটা replace করা | পুরো Post আপডেট (সব field দিতে হয়)         |
+| **PATCH**  | আংশিক ডেটা আপডেট           | শুধু Post এর title বদলানো                         |
+| **DELETE** | ডেটা মুছে ফেলা               | কোনো Post/Comment ডিলিট করা                       |
 
 ### PUT vs PATCH — বাস্তব উদাহরণ
 
@@ -125,24 +124,24 @@ PATCH দিয়ে আপডেট (শুধু যেটা বদলাত
 
 ## HTTP Status Codes
 
-| Code Range | মানে | উদাহরণ |
-|---|---|---|
-| **2xx** | সফল (Success) | `200 OK`, `201 Created`, `204 No Content` |
-| **3xx** | Redirect | `301 Moved Permanently` |
+| Code Range    | মানে           | উদাহরণ                                                                    |
+| ------------- | ------------------ | ------------------------------------------------------------------------------- |
+| **2xx** | সফল (Success)   | `200 OK`, `201 Created`, `204 No Content`                                 |
+| **3xx** | Redirect           | `301 Moved Permanently`                                                       |
 | **4xx** | Client এর ভুল | `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found` |
-| **5xx** | Server এর ভুল | `500 Internal Server Error` |
+| **5xx** | Server এর ভুল | `500 Internal Server Error`                                                   |
 
 ### সবচেয়ে বেশি ব্যবহৃত Status Code (Blog API এর জন্য)
 
-| Code | কখন ব্যবহার হবে (Blog API তে) |
-|---|---|
-| `200 OK` | Post সফলভাবে fetch/update হলে |
-| `201 Created` | নতুন Post সফলভাবে তৈরি হলে |
-| `204 No Content` | Post সফলভাবে delete হলে |
-| `400 Bad Request` | ভুল ডেটা পাঠালে (যেমন title ছাড়া Post তৈরি করার চেষ্টা) |
-| `401 Unauthorized` | Login না করে protected endpoint এ access করার চেষ্টা |
-| `403 Forbidden` | Login করা আছে কিন্তু অনুমতি নেই (যেমন অন্যের Post ডিলিট করার চেষ্টা) |
-| `404 Not Found` | যে Post এর ID দেওয়া হয়েছে সেটা database এ নেই |
+| Code                 | কখন ব্যবহার হবে (Blog API তে)                                                                       |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `200 OK`           | Post সফলভাবে fetch/update হলে                                                                            |
+| `201 Created`      | নতুন Post সফলভাবে তৈরি হলে                                                                       |
+| `204 No Content`   | Post সফলভাবে delete হলে                                                                                  |
+| `400 Bad Request`  | ভুল ডেটা পাঠালে (যেমন title ছাড়া Post তৈরি করার চেষ্টা)                       |
+| `401 Unauthorized` | Login না করে protected endpoint এ access করার চেষ্টা                                               |
+| `403 Forbidden`    | Login করা আছে কিন্তু অনুমতি নেই (যেমন অন্যের Post ডিলিট করার চেষ্টা) |
+| `404 Not Found`    | যে Post এর ID দেওয়া হয়েছে সেটা database এ নেই                                            |
 
 ---
 
@@ -214,13 +213,13 @@ sequenceDiagram
 
 Django দিয়ে সরাসরি API বানানো *সম্ভব*, কিন্তু DRF ব্যবহার করলে অনেক কাজ যা বারবার করতে হতো, সেটা built-in ভাবে পাওয়া যায়।
 
-| ছাড়া DRF (Plain Django) | DRF সহ |
-|---|---|
-| JSON serialization নিজে হাতে লিখতে হয় | `Serializer`/`ModelSerializer` স্বয়ংক্রিয়ভাবে করে দেয় |
-| Authentication/Permission নিজে বানাতে হয় | Built-in Authentication ও Permission ক্লাস আছে |
-| Pagination নিজে implement করতে হয় | Built-in Pagination ক্লাস আছে |
-| Browsable API নেই | স্বয়ংক্রিয় Browsable API UI পাওয়া যায় (ব্রাউজারে সরাসরি API টেস্ট করা যায়) |
-| Validation নিজে লিখতে হয় | Serializer এ built-in validation ব্যবস্থা আছে |
+| ছাড়া DRF (Plain Django)                          | DRF সহ                                                                                                                         |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| JSON serialization নিজে হাতে লিখতে হয় | `Serializer`/`ModelSerializer` স্বয়ংক্রিয়ভাবে করে দেয়                                              |
+| Authentication/Permission নিজে বানাতে হয় | Built-in Authentication ও Permission ক্লাস আছে                                                                          |
+| Pagination নিজে implement করতে হয়          | Built-in Pagination ক্লাস আছে                                                                                            |
+| Browsable API নেই                                   | স্বয়ংক্রিয় Browsable API UI পাওয়া যায় (ব্রাউজারে সরাসরি API টেস্ট করা যায়) |
+| Validation নিজে লিখতে হয়                  | Serializer এ built-in validation ব্যবস্থা আছে                                                                        |
 
 ---
 
@@ -299,15 +298,19 @@ flowchart TD
 ## Interview Questions
 
 **প্রশ্ন: REST এবং RESTful এর মধ্যে পার্থক্য কী?**
+
 > REST হলো একটা architectural style/নীতিমালার সেট। RESTful হলো সেই API, যেটা REST এর নীতিগুলো মেনে ডিজাইন করা হয়েছে।
 
 **প্রশ্ন: PUT আর PATCH এর মধ্যে পার্থক্য কী?**
+
 > PUT সম্পূর্ণ resource replace করে (সব field দিতে হয়), PATCH শুধু নির্দিষ্ট field আংশিকভাবে আপডেট করে।
 
 **প্রশ্ন: Statelessness বলতে কী বোঝায়, এবং এটা কেন গুরুত্বপূর্ণ?**
+
 > প্রতিটা request server এর কাছে independent — server কোনো client এর আগের অবস্থা মনে রাখে না। এটা গুরুত্বপূর্ণ কারণ এতে server easily scale করা যায় — যেকোনো server instance যেকোনো request handle করতে পারে।
 
 **প্রশ্ন: DRF এর প্রধান সুবিধা কী কী?**
+
 > Built-in serialization, authentication, permission, pagination, validation, এবং browsable API — এগুলো ম্যানুয়ালি লেখার প্রয়োজন হয় না।
 
 ---
@@ -321,4 +324,4 @@ flowchart TD
 - **DRF** Django এর উপর built, যা serialization, auth, permission, pagination ইত্যাদি built-in ভাবে দেয় — বারবার ম্যানুয়ালি লেখার প্রয়োজন কমায়
 - **Request-Response Cycle**: Client → URL Router → View → Serializer → Model/Database → ফিরতি পথে → Response
 
-পরবর্তী chapter এ আমরা Section 2: **Project Setup** এ যাব (ইতিমধ্যে দেওয়া হয়েছে), এরপর Section 3: **Models** এ আমাদের Blog API এর প্রথম actual code লেখা শুরু হবে।
+পরবর্তী chapter এ আমরা Section 2: **Project Setup** এ যাব, এরপর Section 3: **Models** এ আমাদের Blog API এর প্রথম actual code লেখা শুরু হবে।
