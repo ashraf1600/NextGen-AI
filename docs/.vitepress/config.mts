@@ -85,10 +85,10 @@ export default defineConfig({
           text: 'LangChain',
           collapsed: false,
           items: [
-            { text: 'Introduction', link: '/langchain/' },
-            { text: 'Installation', link: '/langchain/installation' },
-            { text: 'LangChain Expression Language (LCEL)', link: '/langchain/langchain-expression-language' },
-            { text: 'Core Components Overview', link: '/langchain/langchain-components' },
+            {text: 'Introduction', link: '/langchain/' },
+            {text: 'Installation', link: '/langchain/installation' },
+            {text: 'LangChain Expression Language (LCEL)', link: '/langchain/langchain-expression-language' },
+            {text: 'Core Components Overview', link: '/langchain/langchain-components' },
             {text: 'Component: Models',link: '/langchain/models'},
             {text: 'Component: Prompts',link: '/langchain/prompt'},
             {text: 'Structured Output', link: '/langchain/structured-output' },
@@ -103,20 +103,13 @@ export default defineConfig({
             {text:'Component: Agents',link:'/langchain/agents'},
             {text:'Component: Memory',link:'/langchain/memory'},
             {text:'Intro to RAG (Retrieval-Augmented Generation)',link:'/langchain/rag'},
-            { text: 'Chat Models', link: '/langchain/chat-models' },
-            { text: 'Embeddings', link: '/langchain/embeddings' },
-            { text: 'Vector Stores', link: '/langchain/vector-stores' },
-            { text: 'Retrievers', link: '/langchain/retrievers' },
-            { text: 'RAG', link: '/langchain/rag' },
-            { text: 'Tools', link: '/langchain/tools' },
-            { text: 'Tool Calling', link: '/langchain/tool-calling' },
-            { text: 'Memory', link: '/langchain/memory' },
-            { text: 'Chains', link: '/langchain/chains' },
-            { text: 'Agents', link: '/langchain/agents' },
-            { text: 'Callbacks', link: '/langchain/callbacks' },
-            { text: 'LangSmith', link: '/langchain/langsmith' },
-            { text: 'LangServe', link: '/langchain/langserve' },
-            { text: 'Projects', link: '/langchain/projects' }
+            {text:'tools',link:'/langchain/tools'},
+            {text: 'Tool Calling', link: '/langchain/tool-calling' },
+            {text:'Agents',link:'/langchain/agents'},
+            {text: 'Callbacks', link: '/langchain/callbacks' },
+            {text: 'LangSmith', link: '/langchain/langsmith' },
+            {text: 'LangServe', link: '/langchain/langserve' },
+            {text: 'Projects', link: '/langchain/projects' }
           ]
         }
       ],
@@ -164,15 +157,10 @@ export default defineConfig({
 
       '/orchestration/': [
         {
-          text: 'Orchestration Frameworks',
+          text: 'Overview',
           collapsed: false,
           items: [
-            { text: 'Overview', link: '/orchestration/' },
-            { text: 'LangChain', link: '/langchain/' },
-            { text: 'LlamaIndex', link: '/llamaindex/' },
-            { text: 'LangGraph', link: '/langgraph/' },
-            { text: 'CrewAI', link: '/orchestration/crewai' },
-            { text: 'AutoGen', link: '/orchestration/autogen' },
+            { text: 'Overview', link:'/orchestration/' },
             { text: 'Choosing the Right Framework', link: '/orchestration/comparison' }
           ]
         }
