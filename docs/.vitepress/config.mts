@@ -168,7 +168,15 @@ export default withMermaid(
             { text: 'Section 16: Upload', link: '/drf/upload' },
             { text: 'Section 17: Performance', link: '/drf/performance' },
             { text: 'Section 18: Versioning', link: '/drf/versioning' },
-            { text: 'Section 19: Throttling', link: '/drf/throttling' }
+            { text: 'Section 19: Throttling', link: '/drf/throttling' },
+            { text: 'Section 20: Caching', link: '/drf/caching' },
+            { text: 'Section 21: Testing', link: '/drf/testing' },
+            { text: 'Section 22: Deployment', link: '/drf/deployment' },
+            { text: 'Section 23: Security', link: '/drf/security' },
+            { text: 'Section 24: Interview Questions', link: '/drf/interview-questions' },
+            { text: 'Section 25: Project Review', link: '/drf/project-review' }
+            
+            
 
           ]
         }
