@@ -155,7 +155,11 @@ export default withMermaid(
             { text: 'Section 3: Models', link: '/drf/models' },
             { text: 'Section 4: APIView', link: '/drf/apiview' },
             { text: 'Section 5: Serializer', link: '/drf/serializer' },
-            { text: 'Section 6: GenericAPIView', link: '/drf/genericapiview' }
+            { text: 'Section 6: GenericAPIView', link: '/drf/genericapiview' },
+            { text: 'Section 7: Mixins', link: '/drf/mixins' },
+            { text: 'Section 8: Generic Views', link: '/drf/generic-views' },
+            { text: 'Section 9: ViewSets', link: '/drf/viewsets' },
+            { text: 'Section 10: Authentication', link: '/drf/authentication' }
 
           ]
         }
