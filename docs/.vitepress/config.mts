@@ -159,7 +159,8 @@ export default withMermaid(
             { text: 'Section 7: Mixins', link: '/drf/mixins' },
             { text: 'Section 8: Generic Views', link: '/drf/generic-views' },
             { text: 'Section 9: ViewSets', link: '/drf/viewsets' },
-            { text: 'Section 10: Authentication', link: '/drf/authentication' }
+            { text: 'Section 10: Authentication', link: '/drf/authentication' },
+            { text: 'Section 11: Permissions', link: '/drf/permissions' }
 
           ]
         }
