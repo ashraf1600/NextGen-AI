@@ -1,9 +1,6 @@
 ---
 title: Prompts
 ---
-
-LLM এর output কতটা ভালো হবে, সেটা অনেকাংশে নির্ভর করে input কীভাবে গঠন করা হয়েছে তার উপর। এই পেজে আমরা দেখব কেন সাধারণ string ব্যবহার করে prompt বানানো production application এর জন্য যথেষ্ট না, এবং কীভাবে Prompt Template, Message, ও Message Placeholder ব্যবহার করে scalable, reliable prompt বানানো যায়।
-
 ---
 
 ## Static vs Dynamic Prompt
@@ -44,12 +41,12 @@ print(prompt.text)
 
 ### কেন Prompt Template ব্যবহার করা উচিত
 
-| সমস্যা (Static দিয়ে) | সমাধান (Template দিয়ে) |
-| --- | --- |
-| User input সরাসরি string এ বসালে ভুল হওয়ার ঝুঁকি | Template নিজে থেকে variable properly বসায় |
-| Prompt এর structure validate করা যায় না | Template এ কোন variable লাগবে সেটা আগে থেকেই define করা থাকে |
-| Reuse করা কঠিন | একই template বারবার ভিন্ন input দিয়ে ব্যবহারযোগ্য |
-| বড় application এ maintain করা কঠিন | Prompt সব জায়গায় একই structure মেনে চলে |
+| সমস্যা (Static দিয়ে)                                            | সমাধান (Template দিয়ে)                                                       |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| User input সরাসরি string এ বসালে ভুল হওয়ার ঝুঁকি | Template নিজে থেকে variable properly বসায়                                  |
+| Prompt এর structure validate করা যায় না                         | Template এ কোন variable লাগবে সেটা আগে থেকেই define করা থাকে |
+| Reuse করা কঠিন                                                       | একই template বারবার ভিন্ন input দিয়ে ব্যবহারযোগ্য        |
+| বড় application এ maintain করা কঠিন                              | Prompt সব জায়গায় একই structure মেনে চলে                            |
 
 ::: tip
 `PromptTemplate` তৈরি করার সময় LangChain automatic ভাবে input variable গুলো detect করে ফেলে (`{country}` এখানে)। তুমি চাইলে `input_variables` প্যারামিটার দিয়ে manually ও নির্দিষ্ট করে দিতে পারো, যেটা validation এর জন্য ভালো অভ্যাস — যদি ভুল variable name পাঠাও, LangChain error দিয়ে জানিয়ে দেবে।
@@ -71,11 +68,11 @@ Chat model এর সাথে কাজ করার সময় শুধু 
 
 ### তিন ধরনের Message
 
-| Message Type | ভূমিকা |
-| --- | --- |
+| Message Type            | ভূমিকা                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
 | **SystemMessage** | Model কে instruction দেয় — সে কীভাবে আচরণ করবে, তার persona/role কী |
-| **HumanMessage** | User এর তরফ থেকে পাঠানো actual input/প্রশ্ন |
-| **AIMessage** | Model এর আগের response — conversation history রাখতে ব্যবহার হয় |
+| **HumanMessage**  | User এর তরফ থেকে পাঠানো actual input/প্রশ্ন                                 |
+| **AIMessage**     | Model এর আগের response — conversation history রাখতে ব্যবহার হয়            |
 
 ```python
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
