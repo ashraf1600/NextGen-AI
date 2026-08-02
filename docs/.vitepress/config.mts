@@ -165,7 +165,10 @@ export default withMermaid(
             { text: 'Section 13: Pagination', link: '/drf/pagination' },
             { text: 'Section 14: Relations', link: '/drf/relations' },
             { text: 'Section 15: Validation', link: '/drf/validation' },
-            { text: 'Section 16: Upload', link: '/drf/upload' }
+            { text: 'Section 16: Upload', link: '/drf/upload' },
+            { text: 'Section 17: Performance', link: '/drf/performance' },
+            { text: 'Section 18: Versioning', link: '/drf/versioning' },
+            { text: 'Section 19: Throttling', link: '/drf/throttling' }
 
           ]
         }
