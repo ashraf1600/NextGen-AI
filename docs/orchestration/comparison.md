@@ -1,7 +1,6 @@
 ---
 title: Choosing the Right Framework
 ---
-
 # সঠিক Orchestration Framework বেছে নেওয়া
 
 আগের পেজে আমরা পাঁচটা framework (LangChain, LlamaIndex, LangGraph, CrewAI, AutoGen) এর পরিচিতি দেখেছি। এই পেজে আমরা আরও গভীরভাবে দেখব — বাস্তব প্রজেক্টের প্রয়োজন অনুযায়ী কীভাবে সঠিক framework বেছে নিতে হয়, কোন প্রশ্নগুলো নিজেকে জিজ্ঞাসা করা উচিত, এবং common ভুল সিদ্ধান্ত কী কী।
@@ -12,19 +11,25 @@ title: Choosing the Right Framework
 
 Framework বেছে নেওয়ার আগে নিজেকে এই প্রশ্নগুলো জিজ্ঞাসা করা উচিত:
 
-```
-প্রশ্ন ১: আমার কাজটা কি মূলত ডেটা নিয়ে (RAG-centric), 
-          নাকি জেনারেল-পারপাস (agent, chain, ইত্যাদি)?
 
-প্রশ্ন ২: কতগুলো agent একসাথে কাজ করবে? একটা, নাকি একাধিক?
-
-প্রশ্ন ৩: Workflow কি সরল, একরৈখিক (linear), 
-          নাকি জটিল, cyclic (agent বারবার একে অপরকে call করবে)?
-
-প্রশ্ন ৪: Production-grade reliability দরকার, নাকি এটা শুধু 
-          একটা প্রোটোটাইপ/experiment?
-
-প্রশ্ন ৫: টিমের সাথে কাজ করছি, নাকি এককভাবে দ্রুত কিছু বানাতে চাই?
+```mermaid
+mindmap
+  root((Framework Selection))
+    "Is it RAG-centric?"
+      Data-heavy
+      General AI
+    "How many agents?"
+      Single Agent
+      Multi-Agent
+    "Workflow?"
+      Linear
+      Cyclic
+    "Production Ready?"
+      Prototype
+      Production
+    "Team Style?"
+      Solo Development
+      Team Collaboration
 ```
 
 ---
@@ -65,54 +70,50 @@ Agent-to-agent conversational সমস্যা সমাধান — যে�
 
 ## সিদ্ধান্ত নেওয়ার Flowchart
 
-```
-শুরু
-  │
-  ▼
-মূলত ডেটা/document নিয়ে কাজ (RAG-centric)?
-  │
- হ্যাঁ ──────────────────────────► LlamaIndex
-  │                                (অথবা সহজ ক্ষেত্রে LangChain)
-  না
-  │
-  ▼
-একাধিক agent একসাথে কাজ করবে?
-  │
- হ্যাঁ
-  │
-  ├── স্পষ্ট role/division of labor দরকার? ────► CrewAI
-  │
-  ├── Agent রা নিজেদের মধ্যে conversational
-  │   ভাবে সমস্যা সমাধান করবে? ─────────────► AutoGen
-  │
-  └── Complex state, conditional branching,
-      human-in-the-loop দরকার? ──────────────► LangGraph
-  │
-  না (একটা মাত্র agent/chain)
-  │
-  ▼
-Production-grade reliability দরকার,
-বা জটিল cyclic logic লাগবে?
-  │
- হ্যাঁ ──────────────────────────► LangGraph
-  │
-  না
-  │
-  ▼
-LangChain
-(দ্রুত, সহজ, general-purpose)
+
+
+```mermaid
+flowchart TD
+
+    START(["🚀 Start"])
+
+    START --> Q1{"📚 Is it mainly<br/>RAG / Data-centric?"}
+
+    Q1 -->|Yes| LI["🦙 LlamaIndex"]
+    Q1 -->|Simple RAG| LC1["🦜 LangChain"]
+
+    Q1 -->|No| Q2{"🤖 Multiple Agents?"}
+
+    Q2 -->|Yes| Q3{"👥 What kind?"}
+    Q2 -->|No| Q4{"⚙️ Production-grade<br/>or Complex Workflow?"}
+
+    Q3 -->|"Role-based Team"| CA["👥 CrewAI"]
+    Q3 -->|"Agent Discussion"| AG["💬 AutoGen"]
+    Q3 -->|"Complex State<br/>Human Approval"| LG1["🕸️ LangGraph"]
+
+    Q4 -->|Yes| LG2["🕸️ LangGraph"]
+    Q4 -->|No| LC2["🦜 LangChain"]
+
+    style START fill:#4F46E5,color:#fff
+    style LI fill:#8B5CF6,color:#fff
+    style LC1 fill:#3B82F6,color:#fff
+    style LC2 fill:#3B82F6,color:#fff
+    style LG1 fill:#10B981,color:#fff
+    style LG2 fill:#10B981,color:#fff
+    style CA fill:#F59E0B,color:#fff
+    style AG fill:#EF4444,color:#fff
 ```
 
 ---
 
 ## সাধারণ ভুল সিদ্ধান্ত (Common Mistakes)
 
-| ভুল | কেন সমস্যা | সঠিক পদ্ধতি |
-|---|---|---|
-| ছোট, সরল chatbot এর জন্য শুরুতেই LangGraph ব্যবহার করা | অপ্রয়োজনীয় জটিলতা, বেশি boilerplate কোড | সরল কাজে LangChain দিয়ে শুরু করা, দরকার পড়লে পরে LangGraph এ migrate করা |
-| জটিল multi-agent production system এ শুধু LangChain এর সাধারণ Agent ব্যবহার করা | State management দুর্বল, debugging কঠিন, scale করা কঠিন | LangGraph ব্যবহার করা, যেটা এই জন্যই বিশেষভাবে ডিজাইন করা |
-| RAG-heavy application এ LlamaIndex উপেক্ষা করে সব কিছু LangChain দিয়ে করার চেষ্টা করা | Advanced retrieval কৌশল (query routing, ইত্যাদি) কম সুবিধাজনক হয়ে যায় | ডেটা-কেন্দ্রিক অংশে LlamaIndex এর specialized tooling ব্যবহার করা |
-| একাধিক framework মেশানোর ভয়ে একটা framework দিয়ে সবকিছু করার জোরাজুরি করা | প্রতিটা framework এর নিজস্ব শক্তির জায়গা আছে, সব জায়গায় একটাই framework সবচেয়ে ভালো ফলাফল নাও দিতে পারে | প্রয়োজন অনুযায়ী framework মিশ্রিত করা (যেমন LlamaIndex + LangGraph) |
+| ভুল                                                                                                                     | কেন সমস্যা                                                                                                                                                                 | সঠিক পদ্ধতি                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| ছোট, সরল chatbot এর জন্য শুরুতেই LangGraph ব্যবহার করা                                        | অপ্রয়োজনীয় জটিলতা, বেশি boilerplate কোড                                                                                                                  | সরল কাজে LangChain দিয়ে শুরু করা, দরকার পড়লে পরে LangGraph এ migrate করা |
+| জটিল multi-agent production system এ শুধু LangChain এর সাধারণ Agent ব্যবহার করা                 | State management দুর্বল, debugging কঠিন, scale করা কঠিন                                                                                                            | LangGraph ব্যবহার করা, যেটা এই জন্যই বিশেষভাবে ডিজাইন করা               |
+| RAG-heavy application এ LlamaIndex উপেক্ষা করে সব কিছু LangChain দিয়ে করার চেষ্টা করা  | Advanced retrieval কৌশল (query routing, ইত্যাদি) কম সুবিধাজনক হয়ে যায়                                                                               | ডেটা-কেন্দ্রিক অংশে LlamaIndex এর specialized tooling ব্যবহার করা                 |
+| একাধিক framework মেশানোর ভয়ে একটা framework দিয়ে সবকিছু করার জোরাজুরি করা | প্রতিটা framework এর নিজস্ব শক্তির জায়গা আছে, সব জায়গায় একটাই framework সবচেয়ে ভালো ফলাফল নাও দিতে পারে | প্রয়োজন অনুযায়ী framework মিশ্রিত করা (যেমন LlamaIndex + LangGraph)            |
 
 ---
 
@@ -120,15 +121,32 @@ LangChain
 
 বাস্তব production system এ প্রায়ই একাধিক framework একসাথে ব্যবহার করা হয় — এটা কোনো ব্যতিক্রম না, বরং একটা সাধারণ ও কার্যকর প্যাটার্ন।
 
-```
-বাস্তব উদাহরণ — একটা enterprise knowledge assistant:
 
-  LlamaIndex           →  ডেটা indexing ও retrieval এর জন্য
-        │
-        ▼
-  LangGraph node হিসেবে  →  retrieval কে একটা বড় agent workflow এর
-  ব্যবহার করা                অংশ হিসেবে যুক্ত করা (routing, memory,
-                             human approval সহ)
+```mermaid
+flowchart LR
+
+    DOCS["📄 Enterprise Documents"]
+        --> IDX["🦙 LlamaIndex<br/>Index & Retrieval"]
+
+    IDX
+        --> NODE["🔗 LangGraph Node"]
+
+    NODE
+        --> ROUTE["🔀 Routing"]
+
+    NODE
+        --> MEMORY["🧠 Memory"]
+
+    NODE
+        --> HUMAN["👤 Human Approval"]
+
+    ROUTE --> ANSWER["🤖 Final Response"]
+    MEMORY --> ANSWER
+    HUMAN --> ANSWER
+
+    style IDX fill:#8B5CF6,color:#fff
+    style NODE fill:#10B981,color:#fff
+    style ANSWER fill:#3B82F6,color:#fff
 ```
 
 এভাবে প্রতিটা framework এর সবচেয়ে শক্তিশালী দিকটা ব্যবহার করা যায় — LlamaIndex এর ডেটা-হ্যান্ডলিং ক্ষমতা, আর LangGraph এর workflow orchestration ক্ষমতা।
