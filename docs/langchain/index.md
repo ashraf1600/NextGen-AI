@@ -18,6 +18,26 @@ LLM (Large Language Model) যেমন GPT, Claude, Gemini — এগুলো 
 
 ## What is LangChain? — LangChain কী?
 
+
+
+```mermaid
+flowchart LR
+
+    LLM["LLM"]
+    LC["LangChain"]
+    APP["AI Application"]
+
+    LLM --> LC
+    LC --> APP
+
+    LC -.-> PROMPT["Prompt"]
+    LC -.-> MEMORY["Memory"]
+    LC -.-> TOOLS["Tools"]
+    LC -.-> RETRIEVAL["Retrieval"]
+
+    style LC fill:#3B82F6,color:#fff
+```
+
 **LangChain একটা framework**, যেটা LLM-ভিত্তিক application বানানোর কাজটা সহজ করে দেয়। এটা নিজে কোনো LLM না — বরং LLM-কে ঘিরে থাকা সবকিছু (prompt, memory, tool, data retrieval) organize করার জন্য একটা layer।
 
 সহজ ভাষায় বললে — তুমি যদি সরাসরি OpenAI/Anthropic এর SDK ব্যবহার করো, তাহলে প্রতিটা ছোট কাজ (prompt বানানো, output parse করা, memory রাখা) তোমাকে নিজে code লিখে করতে হবে। LangChain এই কাজগুলোর জন্য আগে থেকেই তৈরি, reusable building block দেয়।
@@ -101,20 +121,30 @@ LLM নিজে ইন্টারনেট থেকে data আনতে প�
 
 একটা সাধারণ LangChain-ভিত্তিক application এর ভিতরে সাধারণত এই ধাপগুলো থাকে:
 
-```
-User Input
-   ↓
-Prompt Template (প্রশ্নটা format করা হয়)
-   ↓
-[যদি দরকার হয়] Retriever → নিজের ডেটা থেকে relevant তথ্য খোঁজা
-   ↓
-Chat Model → LLM কে পাঠানো
-   ↓
-[যদি দরকার হয়] Tool Calling → বাইরের API/function চালানো
-   ↓
-Output Parser → response কে structured format এ আনা
-   ↓
-Final Response → ইউজারকে দেখানো
+
+```mermaid
+flowchart TD
+
+    A["👤 User Input"]
+        --> B["📝 Prompt Template"]
+
+    B --> C{"Need Retrieval?"}
+
+    C -->|Yes| D["📚 Retriever"]
+    C -->|No| E["🤖 Chat Model"]
+
+    D --> E
+
+    E --> F{"Need Tools?"}
+
+    F -->|Yes| G["🛠️ Tool Calling"]
+    F -->|No| H["📦 Output Parser"]
+
+    G --> H
+
+    H --> I["✅ Final Response"]
+
+    style I fill:#10B981,color:#fff
 ```
 
 ### উদাহরণ: একটা সহজ RAG chatbot এর flow
@@ -154,6 +184,33 @@ print(answer)
 এই একটা ছোট example এ দেখা যাচ্ছে — retrieval, prompt, model, parser — সবকিছু একসাথে chain হয়ে কাজ করছে, প্রতিটা অংশ আলাদাভাবে test/replace করা যায়।
 
 ---
+
+
+
+```mermaid
+flowchart LR
+
+    Prompt["Prompt"]
+    Model["Model"]
+    Parser["Parser"]
+    Memory["Memory"]
+    Tools["Tools"]
+    Retriever["Retriever"]
+
+    Prompt --> Chain["LangChain"]
+    Model --> Chain
+    Parser --> Chain
+    Memory --> Chain
+    Tools --> Chain
+    Retriever --> Chain
+
+    Chain --> App["AI App"]
+
+    style Chain fill:#3B82F6,color:#fff
+    style App fill:#10B981,color:#fff
+```
+
+
 
 ## Benefits of LangChain — সুবিধাসমূহ
 
@@ -203,6 +260,5 @@ LangChain-ই একমাত্র option না। প্রজেক্টে
   :::
 
 ---
-
 
 ---
