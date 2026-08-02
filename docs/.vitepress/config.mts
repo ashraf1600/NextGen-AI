@@ -160,7 +160,12 @@ export default withMermaid(
             { text: 'Section 8: Generic Views', link: '/drf/generic-views' },
             { text: 'Section 9: ViewSets', link: '/drf/viewsets' },
             { text: 'Section 10: Authentication', link: '/drf/authentication' },
-            { text: 'Section 11: Permissions', link: '/drf/permissions' }
+            { text: 'Section 11: Permissions', link: '/drf/permissions' },
+            { text: 'Section 12: Filtering', link: '/drf/filtering' },
+            { text: 'Section 13: Pagination', link: '/drf/pagination' },
+            { text: 'Section 14: Relations', link: '/drf/relations' },
+            { text: 'Section 15: Validation', link: '/drf/validation' },
+            { text: 'Section 16: Upload', link: '/drf/upload' }
 
           ]
         }
