@@ -174,12 +174,21 @@ export default withMermaid(
             { text: 'Section 22: Deployment', link: '/drf/deployment' },
             { text: 'Section 23: Security', link: '/drf/security' },
             { text: 'Section 24: Interview Questions', link: '/drf/interview-questions' },
-            { text: 'Section 25: Project Review', link: '/drf/project-review' }
+            { text: 'Section 25: Project Review', link: '/drf/project-review' },
+            
             
             
 
           ]
-        }
+        },
+        {
+    text: 'Advanced Topics',
+    collapsed: false,
+    items: [
+      { text: 'Docker: DRF + React Full Stack', link: '/drf/docker-fullstack' }
+    ]
+  }
+
       ]
     },
 
