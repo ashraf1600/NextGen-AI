@@ -30,7 +30,8 @@ export default withMermaid(
         text: 'LLM Engineering',
         items: [
           { text: 'Prompt Engineering', link: '/prompt-engineering/' },
-          { text: 'RAG', link: '/rag/' },
+
+           { text: 'Advanced RAG',link: '/rag-advanced/' },
           { text: 'Fine-tuning (LoRA/QLoRA, PEFT)', link: '/fine-tuning/' },
           { text: 'Function Calling / Tool Use', link: '/tool-use/' },
           { text: 'Evaluation & Guardrails', link: '/evaluation/' }
@@ -144,6 +145,27 @@ export default withMermaid(
           ]
         }
       ],
+      '/rag-advanced/': [
+  {
+    text: 'Advanced RAG — Course Outline',
+    collapsed: false,
+    items: [
+      { text: 'Course Overview & Prerequisites', link: '/rag-advanced/' },
+      { text: 'Module 1: RAG Fundamentals and Architecture', link: '/rag-advanced/module-1-fundamentals' },
+      { text: 'Module 2: Document Processing and Chunking', link: '/rag-advanced/module-2-chunking' },
+      { text: 'Module 3: Embeddings and Vector Representations', link: '/rag-advanced/module-3-embeddings' },
+      { text: 'Module 4: Vector Stores', link: '/rag-advanced/module-4-vector-stores' },
+      { text: 'Module 5: Basic Retrieval Techniques', link: '/rag-advanced/module-5-basic-retrieval' },
+      { text: 'Module 6: Advanced Retrieval Techniques', link: '/rag-advanced/module-6-advanced-retrieval' },
+      { text: 'Module 7: Advanced RAG Patterns', link: '/rag-advanced/module-7-advanced-patterns' },
+      { text: 'Module 8: Agentic RAG with LangGraph', link: '/rag-advanced/module-8-agentic-rag' },
+      { text: 'Module 9: RAG Evaluation (RAGAS)', link: '/rag-advanced/module-9-ragas-evaluation' },
+      { text: 'Module 10: Capstone Project', link: '/rag-advanced/module-10-capstone' },
+      { text: 'Production RAG', link: '/rag-advanced/production-rag' }
+    ]
+  }
+],
+
 
       '/drf/': [
         {
@@ -181,6 +203,7 @@ export default withMermaid(
 
           ]
         },
+        
         {
     text: 'Advanced Topics',
     collapsed: false,
