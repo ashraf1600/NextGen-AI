@@ -1,4 +1,3 @@
-
 # MLflow Fundamentals
 
 ## What — MLflow কী?
@@ -215,8 +214,4 @@ mlflow ui
 
 ## পরবর্তী ধাপ
 
-এই module-এ আমরা MLflow-এর ভিত্তি এবং একটা প্রাথমিক Run বুঝলাম। পরের module-এ আমরা গভীরভাবে **Experiment Tracking**-এ যাব — কীভাবে multiple runs compare করা যায়, nested runs, tags, autologging-এর প্রাথমিক ধারণা, এবং Tracking Server-এর configuration নিয়ে বিস্তারিত আলোচনা করব।
-
----
-
-আপনি কি পরের topic **"Experiment Tracking"** এর জন্য প্রস্তুত? বললে আমি সেটার জন্য file name suggest করে content লেখা শুরু করব।
+এই module-এ আমরা MLflow-এর ভিত্তি এবং একটা প্রাথমিক Run বুঝলাম। পরের module-এ আমরা গভীরভাবে **Experiment Tracking**-এ যাব — কীভাবে multiple runs compare করা যায়, nested runs, tags, autologging-এর প্রাথমিক ধারণা, এবং Tracking Server-এর configuration নিয়ে বিস্তারিত ...eded
