@@ -219,7 +219,11 @@ export default withMermaid(
             collapsed: false,
             items: [
               { text: 'Introduction', link: '/mlflow/' },
-              { text: 'Experiment Tracking', link: '/mlflow/experiment-tracking' }
+              { text: 'Experiment Tracking', link: '/mlflow/experiment-tracking' },
+              { text: 'Model Registry', link: '/mlflow/model-registry' },
+              { text: 'MLflow Autologging', link: '/mlflow/mlflow-autologging' },
+              { text: 'Serving with FastAPI', link: '/mlflow/mlflow-model-serving-fastapi' },
+              { text: 'Model Evaluation', link: '/mlflow/mlflow-model-evaluation' }
             ]
           }
         ],
