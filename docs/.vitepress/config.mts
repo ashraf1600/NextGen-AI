@@ -48,6 +48,7 @@ export default withMermaid(
           items: [
             { text: 'Overview', link: '/mlops/' },
             { text: 'MLflow', link: '/mlflow/' },
+            {text:'AWS', link: '/aws/'}
           ]
         },
         {
@@ -227,6 +228,118 @@ export default withMermaid(
             ]
           }
         ],
+        '/aws/': [
+  {
+    text: 'Course Outline',
+    collapsed: false,
+    items: [
+      { text: 'Day 0: Course Outline', link: '/aws/' }
+    ]
+  },
+  {
+    text: 'Phase 1 — Cloud & AWS Foundations',
+    collapsed: false,
+    items: [
+      { text: 'Day 01: Cloud Computing Basics', link: '/aws/day-01-cloud-computing-basics' },
+      { text: 'Day 02: AWS Introduction', link: '/aws/day-02-aws-introduction' },
+      { text: 'Day 03: IAM Deep Dive', link: '/aws/day-03-iam-deep-dive' },
+      { text: 'Day 04: AWS CLI Setup', link: '/aws/day-04-aws-cli-setup' },
+      { text: 'Day 05: EC2, Key Pairs, Security Groups', link: '/aws/day-05-ec2-key-pairs-security-groups' },
+      { text: 'Day 06: EBS', link: '/aws/day-06-ebs' },
+      { text: 'Day 07: EFS Hands-on', link: '/aws/day-07-efs-hands-on' },
+      { text: 'Day 08: AMI', link: '/aws/day-08-ami' }
+    ]
+  },
+  {
+    text: 'Phase 2 — Networking',
+    collapsed: true,
+    items: [
+      { text: 'Day 09: VPC Fundamentals', link: '/aws/day-09-vpc-fundamentals' },
+      { text: 'Day 10: Firewall & Elastic IP', link: '/aws/day-10-firewall-elastic-ip' },
+      { text: 'Day 11: VPC Peering', link: '/aws/day-11-vpc-peering' },
+      { text: 'Day 12: Load Balancer (ALB, NLB)', link: '/aws/day-12-load-balancer' }
+    ]
+  },
+  {
+    text: 'Phase 3 — Storage & Databases',
+    collapsed: true,
+    items: [
+      { text: 'Day 13: S3 Deep Dive', link: '/aws/day-13-s3-deep-dive' },
+      { text: 'Day 14: S3 Static Website Hosting', link: '/aws/day-14-s3-static-website' },
+      { text: 'Day 15: RDS Introduction', link: '/aws/day-15-rds-introduction' },
+      { text: 'Day 16: MySQL on EC2', link: '/aws/day-16-mysql-on-ec2' },
+      { text: 'Day 17: EFS Hands-on (Advanced)', link: '/aws/day-17-efs-advanced' }
+    ]
+  },
+  {
+    text: 'Phase 4 — High Availability & Scaling',
+    collapsed: true,
+    items: [
+      { text: 'Day 18: Auto Scaling Groups', link: '/aws/day-18-auto-scaling-groups' },
+      { text: 'Day 19: Launch Templates, Multi-AZ', link: '/aws/day-19-launch-templates-multi-az' },
+      { text: 'Day 20: SNS', link: '/aws/day-20-sns' },
+      { text: 'Day 21: CloudWatch Alarms', link: '/aws/day-21-cloudwatch-alarms' },
+      { text: 'Day 22: SQS', link: '/aws/day-22-sqs' }
+    ]
+  },
+  {
+    text: 'Phase 5 — Serverless & Modern AWS',
+    collapsed: true,
+    items: [
+      { text: 'Day 23: Lambda Introduction', link: '/aws/day-23-lambda-introduction' },
+      { text: 'Day 24: API Gateway + Lambda', link: '/aws/day-24-api-gateway-lambda' },
+      { text: 'Day 25: Project — S3 → Lambda → SNS', link: '/aws/day-25-s3-lambda-sns-project' },
+      { text: 'Day 26: Elastic Beanstalk', link: '/aws/day-26-elastic-beanstalk' }
+    ]
+  },
+  {
+    text: 'Phase 6 — DNS & Traffic Management',
+    collapsed: true,
+    items: [
+      { text: 'Day 27: Route 53', link: '/aws/day-27-route-53' }
+    ]
+  },
+  {
+    text: 'Phase 7 — Containers & Kubernetes',
+    collapsed: true,
+    items: [
+      { text: 'Day 28: Docker Basics', link: '/aws/day-28-docker-basics' },
+      { text: 'Day 29: ECR & ECS', link: '/aws/day-29-ecr-ecs' },
+      { text: 'Day 30: Deploy to ECS Fargate + ALB + Auto Scaling', link: '/aws/day-30-ecs-fargate-deploy' },
+      { text: 'Day 31: EKS Introduction & Deploy', link: '/aws/day-31-eks-introduction' }
+    ]
+  },
+  {
+    text: 'Phase 8 — DevOps on AWS',
+    collapsed: true,
+    items: [
+      { text: 'Day 32: CI/CD Basics & AWS DevOps Services', link: '/aws/day-32-cicd-basics-aws-devops' },
+      { text: 'Day 33: CodeCommit', link: '/aws/day-33-codecommit' },
+      { text: 'Day 34: CodeBuild', link: '/aws/day-34-codebuild' },
+      { text: 'Day 35: CodePipeline', link: '/aws/day-35-codepipeline' },
+      { text: 'Day 36: CodeDeploy', link: '/aws/day-36-codedeploy' },
+      { text: 'Day 37: Blue-Green Deployment', link: '/aws/day-37-blue-green-deployment' }
+    ]
+  },
+  {
+    text: 'Phase 9 — Infrastructure as Code',
+    collapsed: true,
+    items: [
+      { text: 'Day 38: CloudFormation', link: '/aws/day-38-cloudformation' },
+      { text: 'Day 39: Terraform on AWS', link: '/aws/day-39-terraform-on-aws' },
+      { text: 'Day 40: Deploy Full Infra Using Terraform', link: '/aws/day-40-terraform-full-infra' }
+    ]
+  },
+  {
+    text: 'Phase 10 — Real-World Capstone',
+    collapsed: true,
+    items: [
+      { text: 'Capstone: 3-Tier Project (Terraform + Jenkins + Docker)', link: '/aws/capstone-3-tier-project' }
+    ]
+  }
+],
+
+
 
         '/prompt-engineering/': [
           {
